@@ -1,4 +1,4 @@
-import { Product } from "../entity/product";
+import { Product } from "../entity/product"
 
 export interface ProductInterface {
     save(product: Product): Promise<void>

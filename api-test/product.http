@@ -18,3 +18,12 @@ Content-Type:application/json
     "name": "Teclado Gamer Logitech G213",
     "price": 366.89
 }
+
+###
+POST http://localhost:8888/products/
+Content-Type:application/json
+
+{
+    "name": "Cadeira Gamer TGT Heron TC",
+    "price": 399.99
+}
