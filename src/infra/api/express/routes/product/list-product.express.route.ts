@@ -1,9 +1,8 @@
 import { Request, Response } from "express"
 import {
-    ListProductInputDto,
     ListProductOutputDto,
     ListProductUsecase,
-} from "../../../../../usecases/product/list-product.usecase"
+} from "../../../../../usecases/product/"
 import { HttpMethod, Route } from "../routes"
 
 export type ListProductResponseDto = {

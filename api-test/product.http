@@ -2,6 +2,9 @@
 GET http://localhost:8888/products/
 
 ###
+GET http://localhost:8888/product/4f17dbd7-32bf-4b13-b744-c335f5fed86a
+
+###
 POST http://localhost:8888/products/
 Content-Type:application/json
 

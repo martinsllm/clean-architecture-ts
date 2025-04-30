@@ -38,4 +38,23 @@ export class ProductRepositoryPrisma implements ProductInterface {
 
         return productList
     }
+
+    public async findById(id: string): Promise<Product> {
+        const product = await this.prismaClient.product.findFirst({
+            where: {
+                id,
+            },
+        })
+
+        if (!product) throw new Error("Product Not Found")
+
+        const productData = Product.with({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            quantity: product.quantity,
+        })
+
+        return productData
+    }
 }
