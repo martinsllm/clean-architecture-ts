@@ -1,6 +1,7 @@
 import { Api } from "../api"
 import express, { Express } from "express"
 import { Route } from "./routes/routes"
+import { errorMiddleware } from "../../middlewares/errorMiddleware"
 
 export class ApiExpress implements Api {
     private app: Express
@@ -9,6 +10,7 @@ export class ApiExpress implements Api {
         this.app = express()
         this.app.use(express.json())
         this.addRoutes(routes)
+        this.app.use(errorMiddleware)
     }
 
     public static create(routes: Route[]) {

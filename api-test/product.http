@@ -2,7 +2,7 @@
 GET http://localhost:8888/products/
 
 ###
-GET http://localhost:8888/product/4f17dbd7-32bf-4b13-b744-c335f5fed86a
+GET http://localhost:8888/product/829a2f2c-b193-49c5-835f-3c383c33d445
 
 ###
 POST http://localhost:8888/products/

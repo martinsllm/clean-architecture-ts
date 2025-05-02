@@ -1,11 +1,10 @@
 import { Product } from "../../domain/product/entity/product"
 import { ProductInterface } from "../../domain/product/interface/product.interface"
 import { Usecase } from "../usecases"
+import { z } from "zod"
+import { CreateProductSchema } from "../validation/product.schema"
 
-export type CreateProductInputDto = {
-    name: string
-    price: number
-}
+export type CreateProductInputDto = z.infer<typeof CreateProductSchema>
 
 export type CreateProductOutputDto = {
     id: string
@@ -23,6 +22,8 @@ export class CreateProductUsecase
     public async execute(
         input: CreateProductInputDto
     ): Promise<CreateProductOutputDto> {
+        CreateProductSchema.parse(input)
+
         const aProduct = Product.create(input.name, input.price)
 
         await this.productInterface.save(aProduct)
