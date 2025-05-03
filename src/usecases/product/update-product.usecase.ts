@@ -31,6 +31,6 @@ export class UpdateProductUsecase
             quantity: input.quantity,
         })
 
-        await this.productInterface.update(input.id, aProduct)
+        await this.productInterface.update(aProduct)
     }
 }

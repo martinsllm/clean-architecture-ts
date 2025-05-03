@@ -24,7 +24,7 @@ export class FindProductRoute implements Route {
 
     public static create(findProductService: FindProductUseCase) {
         return new FindProductRoute(
-            "/product/:id",
+            "/products/:id",
             HttpMethod.GET,
             findProductService
         )

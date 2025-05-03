@@ -1,6 +1,7 @@
 import { ApiExpress } from "./infra/api/express/api.express"
 import {
     CreateProductRoute,
+    DeleteProductRoute,
     FindProductRoute,
     ListProductRoute,
     UpdateProductRoute,
@@ -12,6 +13,7 @@ import {
     CreateProductUsecase,
     FindProductUseCase,
     UpdateProductUsecase,
+    DeleteProductUsecase,
 } from "./usecases/product"
 
 function main() {
@@ -19,13 +21,15 @@ function main() {
 
     const createProductUsecase = CreateProductUsecase.create(aRepository)
     const listProductUsecase = ListProductUsecase.create(aRepository)
-    const findProductUseCase = FindProductUseCase.create(aRepository)
-    const updateProductUseCase = UpdateProductUsecase.create(aRepository)
+    const findProductUsecase = FindProductUseCase.create(aRepository)
+    const updateProductUsecase = UpdateProductUsecase.create(aRepository)
+    const deleteProductUsecase = DeleteProductUsecase.create(aRepository)
 
     const createRoute = CreateProductRoute.create(createProductUsecase)
     const listRoute = ListProductRoute.create(listProductUsecase)
-    const findRoute = FindProductRoute.create(findProductUseCase)
-    const updateRoute = UpdateProductRoute.create(updateProductUseCase)
+    const findRoute = FindProductRoute.create(findProductUsecase)
+    const updateRoute = UpdateProductRoute.create(updateProductUsecase)
+    const deleteRoute = DeleteProductRoute.create(deleteProductUsecase)
 
     const port = Number(process.env.PORT)
 
@@ -34,6 +38,7 @@ function main() {
         listRoute,
         findRoute,
         updateRoute,
+        deleteRoute,
     ])
 
     api.start(port)

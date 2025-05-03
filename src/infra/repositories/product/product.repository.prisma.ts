@@ -59,7 +59,7 @@ export class ProductRepositoryPrisma implements ProductInterface {
         return productData
     }
 
-    public async update(id: string, product: Product): Promise<void> {
+    public async update(product: Product): Promise<void> {
         const data = {
             name: product.name,
             price: product.price,
@@ -68,9 +68,17 @@ export class ProductRepositoryPrisma implements ProductInterface {
 
         await this.prismaClient.product.update({
             where: {
-                id,
+                id: product.id,
             },
             data,
+        })
+    }
+
+    public async delete(id: string): Promise<void> {
+        await this.prismaClient.product.delete({
+            where: {
+                id,
+            },
         })
     }
 }

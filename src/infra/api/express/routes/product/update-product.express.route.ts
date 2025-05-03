@@ -37,6 +37,7 @@ export class UpdateProductRoute implements Route {
             res.status(204).json()
         }
     }
+    
     getPath(): string {
         return this.path
     }
