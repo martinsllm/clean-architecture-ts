@@ -30,3 +30,13 @@ Content-Type:application/json
     "name": "Cadeira Gamer TGT Heron TC",
     "price": 399.99
 }
+
+###
+PUT http://localhost:8888/products/10fe3178-464a-421c-8aaf-7b6bdb9eb8e8
+Content-Type:application/json
+
+{
+    "name": "Cadeira Gamer TGT Heron TC",
+    "price": 400,
+    "quantity": 10
+}

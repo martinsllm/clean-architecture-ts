@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 import { Product } from "../../../domain/product/entity/product"
 import { ProductInterface } from "../../../domain/product/interface/product.interface"
+import { NotFoundError } from "../../middlewares/helpers/api-errors"
 
 export class ProductRepositoryPrisma implements ProductInterface {
     private constructor(private readonly prismaClient: PrismaClient) {}
@@ -46,7 +47,7 @@ export class ProductRepositoryPrisma implements ProductInterface {
             },
         })
 
-        if (!product) throw new Error("Product Not Found")
+        if (!product) throw new NotFoundError("Product Not Found")
 
         const productData = Product.with({
             id: product.id,
@@ -56,5 +57,20 @@ export class ProductRepositoryPrisma implements ProductInterface {
         })
 
         return productData
+    }
+
+    public async update(id: string, product: Product): Promise<void> {
+        const data = {
+            name: product.name,
+            price: product.price,
+            quantity: product.quantity,
+        }
+
+        await this.prismaClient.product.update({
+            where: {
+                id,
+            },
+            data,
+        })
     }
 }

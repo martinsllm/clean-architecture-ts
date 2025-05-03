@@ -1,24 +1,25 @@
 export type ProductProps = {
-    id: string,
-    name: string,
-    price: number,
+    id: string
+    name: string
+    price: number
     quantity: number
 }
 
 export class Product {
-
     private constructor(private props: ProductProps) {}
 
-    public static create(name: string, price: number) {
+    public static create(name: string, price: number, quantity?: number) {
+        if (!quantity) quantity = 0
+
         return new Product({
             id: crypto.randomUUID().toString(),
             name,
             price,
-            quantity: 0
+            quantity,
         })
     }
 
-    public static with(props: ProductProps){
+    public static with(props: ProductProps) {
         return new Product(props)
     }
 
@@ -26,15 +27,15 @@ export class Product {
         return this.props.id
     }
 
-    public get name(){
+    public get name() {
         return this.props.name
     }
 
-    public get price(){
+    public get price() {
         return this.props.price
     }
 
-    public get quantity(){
+    public get quantity() {
         return this.props.quantity
     }
 
@@ -45,5 +46,4 @@ export class Product {
     public increaseQuantity(quantity: number) {
         this.props.price += quantity
     }
-
 }
