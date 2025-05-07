@@ -7,14 +7,16 @@ import {
     ListProductUsecase,
     UpdateProductUsecase,
 } from "./product"
+import { CreateUserUsecase } from "./user/create-user.usecase"
 
-const aRepository = ProductRepositoryPrisma.create(prisma)
+const aProductRepository = ProductRepositoryPrisma.create(prisma)
 
-const createProductUsecase = CreateProductUsecase.create(aRepository)
-const listProductUsecase = ListProductUsecase.create(aRepository)
-const findProductUsecase = FindProductUseCase.create(aRepository)
-const updateProductUsecase = UpdateProductUsecase.create(aRepository)
-const deleteProductUsecase = DeleteProductUsecase.create(aRepository)
+const createProductUsecase = CreateProductUsecase.create(aProductRepository)
+const listProductUsecase = ListProductUsecase.create(aProductRepository)
+const findProductUsecase = FindProductUseCase.create(aProductRepository)
+const updateProductUsecase = UpdateProductUsecase.create(aProductRepository)
+const deleteProductUsecase = DeleteProductUsecase.create(aProductRepository)
+const createUserUsecase = CreateUserUsecase.create()
 
 export {
     createProductUsecase,
@@ -22,4 +24,5 @@ export {
     findProductUsecase,
     updateProductUsecase,
     deleteProductUsecase,
+    createUserUsecase,
 }
