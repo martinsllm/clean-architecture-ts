@@ -8,6 +8,7 @@ import {
     ListProductUsecase,
     UpdateProductUsecase,
 } from "./product"
+import { LoginUserUsecase } from "./user"
 import { CreateUserUsecase } from "./user/create-user.usecase"
 
 const aProductRepository = ProductRepositoryPrisma.create(prisma)
@@ -19,6 +20,7 @@ const findProductUsecase = FindProductUseCase.create(aProductRepository)
 const updateProductUsecase = UpdateProductUsecase.create(aProductRepository)
 const deleteProductUsecase = DeleteProductUsecase.create(aProductRepository)
 const createUserUsecase = CreateUserUsecase.create(aUserRepository)
+const loginUserUsecase = LoginUserUsecase.create(aUserRepository)
 
 export {
     createProductUsecase,
@@ -27,4 +29,5 @@ export {
     updateProductUsecase,
     deleteProductUsecase,
     createUserUsecase,
+    loginUserUsecase,
 }

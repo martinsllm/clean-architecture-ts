@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client"
 import { User } from "../../../domain/user/entity/user"
 import { UserInterface } from "../../../domain/user/interface/user.interface"
 import bcrypt from "bcrypt"
+import { BadRequestError } from "../../middlewares/helpers/api-errors"
 
 export class UserRepositoryPrisma implements UserInterface {
     private constructor(private readonly prismaClient: PrismaClient) {}
@@ -28,7 +29,22 @@ export class UserRepositoryPrisma implements UserInterface {
         })
     }
 
-    findById(id: string): Promise<User> {
-        throw new Error("Method not implemented.")
+    public async findByEmail(email: string): Promise<User> {
+        const user = await this.prismaClient.user.findFirst({
+            where: {
+                email,
+            },
+        })
+
+        if (!user) throw new BadRequestError("Invalid e-mail or password!")
+
+        const userData = User.with({
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            password: user.password,
+        })
+
+        return userData
     }
 }
