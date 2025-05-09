@@ -13,10 +13,10 @@ export type CreateUserOutputDto = {
 export class CreateUserUsecase
     implements Usecase<CreateUserInputDto, CreateUserOutputDto>
 {
-    private constructor() {}
+    private constructor(private readonly userInterface: UserInterface) {}
 
-    public static create() {
-        return new CreateUserUsecase()
+    public static create(userInterface: UserInterface) {
+        return new CreateUserUsecase(userInterface)
     }
 
     public async execute(
@@ -25,6 +25,8 @@ export class CreateUserUsecase
         CreateUserSchema.parse(input)
 
         const aUser = User.create(input.name, input.email, input.password)
+
+        await this.userInterface.save(aUser)
 
         const output = this.presentOutput(aUser)
 
