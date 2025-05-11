@@ -1,10 +1,11 @@
-import { Request, Response } from "express"
+import { NextFunction, Request, Response } from "express"
 import { HttpMethod, Route } from "../routes"
 import {
     FindProductInputDto,
     FindProductOutputDto,
     FindProductUseCase,
 } from "../../../../../usecases/product"
+import { auth } from "../../../../middlewares/auth"
 
 export type FindProductResponseDto = {
     product: {
@@ -28,6 +29,12 @@ export class FindProductRoute implements Route {
             HttpMethod.GET,
             findProductService
         )
+    }
+
+    public getAuth() {
+        return async () => {
+            auth.getAuth()
+        }
     }
 
     getHandler() {

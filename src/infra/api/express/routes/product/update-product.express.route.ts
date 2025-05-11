@@ -1,11 +1,13 @@
-import { Request, Response } from "express"
+import { NextFunction, Request, Response } from "express"
 import { HttpMethod, Route } from "../routes"
 import {
     UpdateProductInputDto,
     UpdateProductUsecase,
 } from "../../../../../usecases/product/update-product.usecase"
+import { Auth } from "../../../../middlewares/auth/auth.interface"
+import { auth } from "../../../../middlewares/auth"
 
-export class UpdateProductRoute implements Route {
+export class UpdateProductRoute implements Route, Auth {
     private constructor(
         private readonly path: string,
         private readonly method: HttpMethod,
@@ -18,6 +20,12 @@ export class UpdateProductRoute implements Route {
             HttpMethod.PUT,
             updateProductService
         )
+    }
+
+    public getAuth() {
+        return async () => {
+            auth.getAuth()
+        }
     }
 
     public getHandler() {
@@ -37,7 +45,7 @@ export class UpdateProductRoute implements Route {
             res.status(204).json()
         }
     }
-    
+
     getPath(): string {
         return this.path
     }

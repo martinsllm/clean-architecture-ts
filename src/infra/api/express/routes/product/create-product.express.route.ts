@@ -1,57 +1,65 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express"
 import {
-  CreateProductUsecase,
-  CreateProductInputDto,
-} from "../../../../../usecases/product/create-product.usecase";
-import { HttpMethod, Route } from "../routes";
+    CreateProductUsecase,
+    CreateProductInputDto,
+} from "../../../../../usecases/product/create-product.usecase"
+import { HttpMethod, Route } from "../routes"
+import { Auth } from "../../../../middlewares/auth/auth.interface"
+import { auth } from "../../../../middlewares/auth"
 
 export type CreateProductResponseDto = {
-  id: string;
-};
+    id: string
+}
 
-export class CreateProductRoute implements Route {
-  private constructor(
-    private readonly path: string,
-    private readonly method: HttpMethod,
-    private readonly createProductService: CreateProductUsecase
-  ) {}
+export class CreateProductRoute implements Route, Auth {
+    private constructor(
+        private readonly path: string,
+        private readonly method: HttpMethod,
+        private readonly createProductService: CreateProductUsecase
+    ) {}
 
-  public static create(createProductService: CreateProductUsecase) {
-    return new CreateProductRoute(
-      "/products",
-      HttpMethod.POST,
-      createProductService
-    );
-  }
+    public static create(createProductService: CreateProductUsecase) {
+        return new CreateProductRoute(
+            "/products",
+            HttpMethod.POST,
+            createProductService
+        )
+    }
 
-  public getHandler() {
-    return async (req: Request, res: Response) => {
-      const { name, price } = req.body;
+    public getAuth() {
+        return async () => {
+            auth.getAuth()
+        }
+    }
 
-      const input: CreateProductInputDto = {
-        name,
-        price,
-      };
+    public getHandler() {
+        return async (req: Request, res: Response) => {
+            const { name, price } = req.body
 
-      const output: CreateProductResponseDto =
-        await this.createProductService.execute(input);
+            const input: CreateProductInputDto = {
+                name,
+                price,
+            }
 
-      const responseBody = this.present(output);
+            const output: CreateProductResponseDto =
+                await this.createProductService.execute(input)
 
-      res.status(201).json(responseBody).send();
-    };
-  }
+            const responseBody = this.present(output)
 
-  public getPath(): string {
-    return this.path;
-  }
+            res.status(201).json(responseBody).send()
+        }
+    }
 
-  public getMethod(): HttpMethod {
-    return this.method;
-  }
+    public getPath(): string {
+        return this.path
+    }
 
-  private present(input: CreateProductResponseDto): CreateProductResponseDto {
-    const response = { id: input.id };
-    return response;
-  }
+    public getMethod(): HttpMethod {
+        return this.method
+    }
+
+    private present(input: CreateProductResponseDto): CreateProductResponseDto {
+        const response = { id: input.id }
+        return response
+    }
 }

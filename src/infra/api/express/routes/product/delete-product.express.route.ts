@@ -1,11 +1,13 @@
-import { Request, Response } from "express"
+import { NextFunction, Request, Response } from "express"
 import { HttpMethod, Route } from "../routes"
 import {
     DeleteProductInputDto,
     DeleteProductUsecase,
 } from "../../../../../usecases/product"
+import { Auth } from "../../../../middlewares/auth/auth.interface"
+import { auth } from "../../../../middlewares/auth"
 
-export class DeleteProductRoute implements Route {
+export class DeleteProductRoute implements Route, Auth {
     private constructor(
         private readonly path: string,
         private readonly method: HttpMethod,
@@ -18,6 +20,12 @@ export class DeleteProductRoute implements Route {
             HttpMethod.DELETE,
             deleteProductService
         )
+    }
+
+    public getAuth() {
+        return async () => {
+            auth.getAuth()
+        }
     }
 
     public getHandler() {

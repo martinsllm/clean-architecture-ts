@@ -1,9 +1,11 @@
-import { Request, Response } from "express"
+import { NextFunction, Request, RequestHandler, Response } from "express"
 import {
     ListProductOutputDto,
     ListProductUsecase,
 } from "../../../../../usecases/product/"
 import { HttpMethod, Route } from "../routes"
+import { Auth } from "../../../../middlewares/auth/auth.interface"
+import { auth } from "../../../../middlewares/auth"
 
 export type ListProductResponseDto = {
     products: {
@@ -13,7 +15,7 @@ export type ListProductResponseDto = {
     }[]
 }
 
-export class ListProductRoute implements Route {
+export class ListProductRoute implements Route, Auth {
     private constructor(
         private readonly path: string,
         private readonly method: HttpMethod,
@@ -26,6 +28,12 @@ export class ListProductRoute implements Route {
             HttpMethod.GET,
             listProductService
         )
+    }
+
+    public getAuth() {
+        return async () => {
+            auth.getAuth()
+        }
     }
 
     public getHandler() {

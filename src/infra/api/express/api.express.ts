@@ -1,7 +1,8 @@
 import { Api } from "../api"
 import express, { Express } from "express"
 import { Route } from "./routes/routes"
-import { errorMiddleware } from "../../middlewares/errorMiddleware"
+import { auth } from "../../middlewares/auth"
+import { errorMiddleware } from "../../middlewares/errors/error.middleware"
 
 export class ApiExpress implements Api {
     private app: Express
@@ -22,6 +23,11 @@ export class ApiExpress implements Api {
             const path = route.getPath()
             const method = route.getMethod()
             const handler = route.getHandler()
+
+            if (path != "/users" && path != "/login") {
+                const middleware = auth.getAuth()
+                this.app[method](path, middleware, handler)
+            }
 
             this.app[method](path, handler)
         })
