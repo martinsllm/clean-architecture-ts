@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client"
-import { User } from "../../../domain/user/entity/user"
+import { User, UserProps } from "../../../domain/user/entity/user"
 import { UserInterface } from "../../../domain/user/interface/user.interface"
 import bcrypt from "bcrypt"
 import { BadRequestError } from "../../middlewares/errors/api-errors"
@@ -38,13 +38,7 @@ export class UserRepositoryPrisma implements UserInterface {
 
         if (!user) throw new BadRequestError("Invalid e-mail or password!")
 
-        const userData = User.with({
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            password: user.password,
-        })
-
+        const userData = this.present(user)
         return userData
     }
 
@@ -57,6 +51,11 @@ export class UserRepositoryPrisma implements UserInterface {
 
         if (!user) throw new BadRequestError("Invalid e-mail or password!")
 
+        const userData = this.present(user)
+        return userData
+    }
+
+    private present(user: UserProps): User {
         const userData = User.with({
             id: user.id,
             name: user.name,
