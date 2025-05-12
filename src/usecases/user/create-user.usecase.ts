@@ -1,8 +1,8 @@
 import { z } from "zod"
 import { UserInterface } from "../../domain/user/interface/user.interface"
-import { CreateUserSchema } from "../validation/user.schema"
 import { Usecase } from "../usecases"
 import { User } from "../../domain/user/entity/user"
+import { CreateUserSchema } from "../validation"
 
 export type CreateUserInputDto = z.infer<typeof CreateUserSchema>
 

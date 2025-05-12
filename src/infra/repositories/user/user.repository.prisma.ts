@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client"
 import { User, UserProps } from "../../../domain/user/entity/user"
 import { UserInterface } from "../../../domain/user/interface/user.interface"
 import bcrypt from "bcrypt"
-import { BadRequestError } from "../../middlewares/errors/api-errors"
+import { BadRequestError } from "../../middlewares/errors/helpers/api-errors"
 
 export class UserRepositoryPrisma implements UserInterface {
     private constructor(private readonly prismaClient: PrismaClient) {}

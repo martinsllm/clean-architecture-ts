@@ -2,7 +2,7 @@ import { Product } from "../../domain/product/entity/product"
 import { ProductInterface } from "../../domain/product/interface/product.interface"
 import { Usecase } from "../usecases"
 import { z } from "zod"
-import { CreateProductSchema } from "../validation/product.schema"
+import { CreateProductSchema } from "../validation"
 
 export type CreateProductInputDto = z.infer<typeof CreateProductSchema>
 

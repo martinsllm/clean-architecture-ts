@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express"
-import { ApiError } from "../../../middlewares/errors/api-errors"
+import { ApiError } from "../../../middlewares/errors/helpers/api-errors"
 
 export type HttpMethod = "get" | "post" | "put" | "delete"
 

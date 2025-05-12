@@ -1,6 +1,6 @@
 import { User } from "../../domain/user/entity/user"
 import { UserInterface } from "../../domain/user/interface/user.interface"
-import { BadRequestError } from "../../infra/middlewares/errors/api-errors"
+import { BadRequestError } from "../../infra/middlewares/errors/helpers/api-errors"
 import { Usecase } from "../usecases"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"

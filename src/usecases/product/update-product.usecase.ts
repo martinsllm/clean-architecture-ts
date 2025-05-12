@@ -1,8 +1,8 @@
 import { z } from "zod"
-import { UpdateProductSchema } from "../validation/product.schema"
 import { ProductInterface } from "../../domain/product/interface/product.interface"
 import { Product } from "../../domain/product/entity/product"
 import { Usecase } from "../usecases"
+import { UpdateProductSchema } from "../validation"
 
 export type UpdateProductInputDto = z.infer<typeof UpdateProductSchema>
 
